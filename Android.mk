@@ -16,6 +16,10 @@
 
 LOCAL_PATH := $(call my-dir)
 
+LOCAL_SDCLANG_LTO := true
+LOCAL_SDCLANG_LTO_LDFLAGS := -O3 -funroll-loops
+LOCAL_FDO_SUPPORT := true
+
 jemalloc_common_cflags := \
 	-std=gnu11 \
 	-D_REENTRANT \
