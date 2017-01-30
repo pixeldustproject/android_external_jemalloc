@@ -2840,6 +2840,7 @@ _malloc_prefork(void)
 	witness_prefork(tsd);
 	/* Acquire all mutexes in a safe order. */
 	ctl_prefork(tsd_tsdn(tsd));
+	tcache_prefork(tsd_tsdn(tsd));
 	malloc_mutex_prefork(tsd_tsdn(tsd), &arenas_lock);
 	prof_prefork0(tsd_tsdn(tsd));
 	for (i = 0; i < 3; i++) {
@@ -2899,6 +2900,7 @@ _malloc_postfork(void)
 	}
 	prof_postfork_parent(tsd_tsdn(tsd));
 	malloc_mutex_postfork_parent(tsd_tsdn(tsd), &arenas_lock);
+	tcache_postfork_parent(tsd_tsdn(tsd));
 	ctl_postfork_parent(tsd_tsdn(tsd));
 }
 
@@ -2923,6 +2925,7 @@ jemalloc_postfork_child(void)
 	}
 	prof_postfork_child(tsd_tsdn(tsd));
 	malloc_mutex_postfork_child(tsd_tsdn(tsd), &arenas_lock);
+	tcache_postfork_child(tsd_tsdn(tsd));
 	ctl_postfork_child(tsd_tsdn(tsd));
 }
 
