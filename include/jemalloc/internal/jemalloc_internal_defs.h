@@ -261,6 +261,12 @@
 #define JEMALLOC_HAVE_MADVISE 
 
 /*
+ * Defined if transparent huge pages are supported via the MADV_[NO]HUGEPAGE
+ * arguments to madvise(2).
+ */
+/*#undef JEMALLOC_HAVE_MADVISE_HUGE*/
+
+/*
  * Methods for purging unused pages differ between operating systems.
  *
  *   madvise(..., MADV_FREE) : This marks pages as being unused, such that they
@@ -272,11 +278,8 @@
 /* #undef JEMALLOC_PURGE_MADVISE_FREE */
 #define JEMALLOC_PURGE_MADVISE_DONTNEED 
 
-/*
- * Defined if transparent huge pages are supported via the MADV_[NO]HUGEPAGE
- * arguments to madvise(2).
- */
-/* ANDROID: Since not all targets support THP in kernel, this is handled by Makefile. */
+/* Defined if transparent huge page support is enabled. */
+/* ANDROID: Since not all targets support THP in kernel, this is handled in Makefile. */
 /* #undef JEMALLOC_THP */
 
 /* Define if operating system has alloca.h header. */
