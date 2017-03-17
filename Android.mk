@@ -72,6 +72,14 @@ ifeq ($(TARGET_SUPPORTS_THP),true)
 jemalloc_common_cflags += -DJEMALLOC_THP
 endif
 
+# Enable Jemalloc MADVISE_FREE usage if
+# the target specifies that its kernel supports
+# MADVISE_FREE. This enables the lazy page
+# purge feature.
+ifeq ($(TARGET_SUPPORTS_MADVISE_FREE),true)
+  jemalloc_common_cflags += -DJEMALLOC_PURGE_MADVISE_FREE
+endif
+
 # Use a 512K chunk size on 32 bit systems.
 # This keeps the total amount of virtual address space consumed
 # by jemalloc lower.
